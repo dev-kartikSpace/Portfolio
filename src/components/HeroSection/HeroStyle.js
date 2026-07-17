@@ -101,7 +101,7 @@ export const Aurora3 = styled(AuroraBlob)`
 
 export const HeroInner = styled.div`
   position: relative;
-  top: -40px;
+  // top: -10px;
   z-index: 1;
   width: 100%;
   max-width: 1200px;

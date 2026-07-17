@@ -4,9 +4,55 @@ import { motion } from 'framer-motion'
 import { Briefcase, Calendar, MapPin } from 'lucide-react'
 import Pill from '../common/Pill'
 
+const TimelineItem = styled.div`
+    position: relative;
+    padding-left: 48px;
+    width: 100%;
+
+    /* Timeline line */
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 18px;
+        width: 2px;
+        background: ${({ theme }) => theme.card_border};
+    }
+
+    &:hover .timeline-node {
+        background: rgba(133, 76, 230, 1);
+        box-shadow: 0 0 10px rgba(133, 76, 230, 0.8);
+        border-color: rgba(133, 76, 230, 0.5);
+    }
+
+    @media only screen and (max-width: 640px) {
+        padding-left: 36px;
+        &::before {
+            left: 12px;
+        }
+    }
+`;
+
+const TimelineNode = styled.div`
+    position: absolute;
+    left: 14px;
+    top: 36px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.card_border};
+    border: 2px solid ${({ theme }) => theme.bg};
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
+
+    @media only screen and (max-width: 640px) {
+        left: 8px;
+    }
+`;
+
 const Card = styled(motion.div)`
     width: 100%;
-    max-width: 900px;
     border: 1px solid ${({ theme }) => theme.card_border};
     border-radius: 16px;
     padding: 28px;
@@ -14,6 +60,12 @@ const Card = styled(motion.div)`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        border-color: rgba(133, 76, 230, 0.35);
+        box-shadow: 0 0 20px rgba(133, 76, 230, 0.1);
+    }
 
     @media only screen and (max-width: 768px) {
         padding: 20px;
@@ -82,37 +134,40 @@ const TagRow = styled.div`
 
 const ExperienceCard = ({ experience }) => {
     return (
-        <Card whileHover={{ y: -2 }}>
-            <TopRow>
-                <LeftBlock>
-                    <RoleRow>
-                        <Briefcase size={18} />
-                        {experience.role}
-                    </RoleRow>
-                    <Company>{experience.company}</Company>
-                </LeftBlock>
-                <RightBlock>
-                    <MetaRow>
-                        <Calendar size={14} />
-                        {experience.date}
-                    </MetaRow>
-                    {experience.location &&
+        <TimelineItem>
+            <TimelineNode className="timeline-node" />
+            <Card whileHover={{ y: -2 }}>
+                <TopRow>
+                    <LeftBlock>
+                        <RoleRow>
+                            <Briefcase size={18} />
+                            {experience.role}
+                        </RoleRow>
+                        <Company>{experience.company}</Company>
+                    </LeftBlock>
+                    <RightBlock>
                         <MetaRow>
-                            <MapPin size={14} />
-                            {experience.location}
+                            <Calendar size={14} />
+                            {experience.date}
                         </MetaRow>
-                    }
-                </RightBlock>
-            </TopRow>
-            {experience.desc && <Description>{experience.desc}</Description>}
-            {experience.skills &&
-                <TagRow>
-                    {experience.skills.map((skill) => (
-                        <Pill key={skill} variant="outline">{skill}</Pill>
-                    ))}
-                </TagRow>
-            }
-        </Card>
+                        {experience.location &&
+                            <MetaRow>
+                                <MapPin size={14} />
+                                {experience.location}
+                            </MetaRow>
+                        }
+                    </RightBlock>
+                </TopRow>
+                {experience.desc && <Description>{experience.desc}</Description>}
+                {experience.skills &&
+                    <TagRow>
+                        {experience.skills.map((skill) => (
+                            <Pill key={skill} variant="outline">{skill}</Pill>
+                        ))}
+                    </TagRow>
+                }
+            </Card>
+        </TimelineItem>
     )
 }
 
