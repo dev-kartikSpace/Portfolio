@@ -1,5 +1,4 @@
 import { ThemeProvider } from "styled-components";
-import { useState } from "react";
 import { darkTheme, lightTheme } from './utils/Themes.js'
 import Navbar from "./components/Navbar";
 import './App.css';
@@ -20,15 +19,16 @@ const Body = styled.div`
 `
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={lightTheme}>
       <Router>
-        <Navbar darkMode={darkMode} toggleTheme={() => setDarkMode((d) => !d)} />
+        <Navbar />
         <Body>
           <HeroSection />
           <Skills />
-          <Experience />
+          <ThemeProvider theme={darkTheme}>
+            <Experience />
+          </ThemeProvider>
           <Education />
           <Projects />
           <Contact />

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Nav, NavLink, NavbarContainer, Span, NavLogo, NavItems, ButtonContainer, MobileIcon, MobileMenu, MobileLink, ThemeToggleButton, MobileMenuButtonWrapper } from './NavbarStyledComponent'
-import { Menu, X, Sun, Moon } from 'lucide-react'
+import { Nav, NavLink, NavbarContainer, Span, NavLogo, NavItems, ButtonContainer, MobileIcon, MobileMenu, MobileLink, MobileMenuButtonWrapper } from './NavbarStyledComponent'
+import { Menu, X } from 'lucide-react'
 import { Bio } from '../../data/constants'
 
 const navItems = [
@@ -12,7 +12,7 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ]
 
-const Navbar = ({ darkMode, toggleTheme }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   return (
     <Nav>
@@ -25,25 +25,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
             <NavLink key={item.label} href={item.href}>{item.label}</NavLink>
           ))}
         </NavItems>
-        <ButtonContainer>
-          <ThemeToggleButton
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-          </ThemeToggleButton>
-        </ButtonContainer>
         <MobileIcon>
-          <ThemeToggleButton
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-          </ThemeToggleButton>
           <MobileMenuButtonWrapper onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </MobileMenuButtonWrapper>
