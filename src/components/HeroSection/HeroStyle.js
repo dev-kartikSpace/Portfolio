@@ -18,11 +18,11 @@ export const HeroContainer = styled.section`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 120px 24px 80px 24px;
+  padding: 100px 24px 80px 24px;
   background: ${({ theme }) => theme.bg};
 
   @media (max-width: 960px) {
-    padding: 100px 16px 64px 16px;
+    padding: 80px 16px 64px 16px;
   }
 `;
 
@@ -61,6 +61,7 @@ export const GridOverlay = styled.div`
 
 export const HeroInner = styled.div`
   position: relative;
+  top: -40px;
   z-index: 1;
   width: 100%;
   max-width: 1200px;
@@ -73,6 +74,7 @@ export const HeroInner = styled.div`
     grid-template-columns: 1fr;
     gap: 40px;
     text-align: center;
+    top: -20px;
   }
 `;
 
@@ -291,7 +293,8 @@ export const GreenDot = styled.div`
 
 export const ScrollCue = styled.div`
   position: absolute;
-  bottom: 24px;
+  bottom: auto;
+  top: min(calc(100% - 60px), calc(100vh - 60px));
   left: 50%;
   transform: translateX(-50%);
   display: flex;
