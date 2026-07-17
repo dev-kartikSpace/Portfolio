@@ -49,7 +49,9 @@ export const GridOverlay = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 16px;
-  opacity: 0.04;
+  opacity: 0.14;
+  mask-image: linear-gradient(to bottom, transparent, ${({ theme }) => theme.text_primary} 35%, ${({ theme }) => theme.text_primary} 65%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, ${({ theme }) => theme.text_primary} 35%, ${({ theme }) => theme.text_primary} 65%, transparent);
 
   div {
     border-right: 1px solid ${({ theme }) => theme.text_primary};
