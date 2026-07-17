@@ -1,111 +1,52 @@
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import styled from 'styled-components';
 import { Bio } from '../../data/constants';
 
 const FooterContainer = styled.div`
   width: 100%;
-  padding: 2rem 0;
+  padding: 48px 24px;
   display: flex;
   justify-content: center;
-  //background: linear-gradient(100.26deg, rgba(0, 102, 255, 0.05) 42.33%, rgba(150, 0, 225, 0.05) 127.07%);
+  background: ${({ theme }) => theme.card_light};
 `;
-
 
 const FooterWrapper = styled.footer`
   width: 100%;
-  max-width: 1200px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
   align-items: center;
-  padding: 1rem;
-  color: ${({ theme }) => theme.text_primary};
+  text-align: center;
+  gap: 12px;
 `;
 
-const Logo = styled.h1`
+const Name = styled.h3`
   font-weight: 600;
-  font-size: 20px;
-  color: ${({ theme }) => theme.primary};
-`;
-
-const Nav = styled.nav`
-  width: 100%;
-  max-width: 800px;
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  justify-content: center;
-  @media (max-width: 768px) {
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    text-align: center;
-    font-size: 12px;
-  }
-`;
-
-const NavLink = styled.a`
-color: ${({ theme }) => theme.text_primary};
-  text-decoration: none;
-  font-size: 1.2rem;
-  transition: color 0.2s ease-in-out;
-  &:hover {
-    color: ${({ theme }) => theme.primary};
-  }
-  @media (max-width: 768px) {
-    font-size: 1rem;
-  }
-`;
-
-const SocialMediaIcons = styled.div`
-  display: flex;
-  margin-top: 1rem;
-`;
-
-const SocialMediaIcon = styled.a`
-  display: inline-block;
-  margin: 0 1rem;
-  font-size: 1.5rem;
+  font-size: 18px;
   color: ${({ theme }) => theme.text_primary};
-  transition: color 0.2s ease-in-out;
-  &:hover {
-    color: ${({ theme }) => theme.primary};
-  }
+  margin: 0;
+`;
+
+const Tagline = styled.p`
+  font-size: 14px;
+  color: ${({ theme }) => theme.text_secondary};
+  margin: 0;
 `;
 
 const Copyright = styled.p`
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.soft2};
-  text-align: center;
+  font-size: 13px;
+  color: ${({ theme }) => theme.text_secondary};
+  margin: 8px 0 0 0;
 `;
 
 function Footer() {
   return (
     <FooterContainer>
       <FooterWrapper>
-        <Logo>Kartik Sharma</Logo>
-        <Nav>
-          <NavLink href="#about">About</NavLink>
-          <NavLink href="#skills">Skills</NavLink>
-          <NavLink href="#experience">Experience</NavLink>
-          <NavLink href="#projects">Projects</NavLink>
-          <NavLink href="#education">Education</NavLink>
-        </Nav>
-        <SocialMediaIcons>
-          <SocialMediaIcon href={Bio.facebook} target="display"><FacebookIcon /></SocialMediaIcon>
-          <SocialMediaIcon href={Bio.twitter} target="display"><TwitterIcon /></SocialMediaIcon>
-          <SocialMediaIcon href={Bio.linkedin} target="display"><LinkedInIcon /></SocialMediaIcon>
-          <SocialMediaIcon href={Bio.insta} target="display"><InstagramIcon /></SocialMediaIcon>
-        </SocialMediaIcons>
+        <Name>{Bio.name}</Name>
+        <Tagline>{Bio.roles.join(' | ')}</Tagline>
         <Copyright>
-          &copy; 2024 Kartik Sharma. All rights reserved.
+          &copy; {new Date().getFullYear()} {Bio.name}. All rights reserved.
         </Copyright>
-
       </FooterWrapper>
     </FooterContainer>
   );

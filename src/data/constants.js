@@ -16,7 +16,16 @@ export const Bio = {
     // twitter: "https://twitter.com/RishavChanda",
     insta: "https://www.instagram.com/kartik.__.0/",
     // facebook: "https://www.facebook.com/rishav.chanda.165/",
+    email: "kartik.sharma@example.com", // TODO: replace with real email
+    phone: "+91 00000 00000", // TODO: update with real phone number
+    location: "India (Remote)", // TODO: update with real location
   };
+
+  export const heroStats = [
+    { value: "50+", label: "Projects" }, // TODO: update with real values
+    { value: "5+", label: "Years Exp" }, // TODO: update with real values
+    { value: "100%", label: "Client Satisfaction" }, // TODO: update with real values
+  ];
 
   export const skills = [
     {
@@ -194,6 +203,7 @@ export const Bio = {
       role: "Frontend Developer Intern",
       company: "Exponance Twirltree Llp",
       date: "Aug 2023- Nov 2023",
+      location: "Remote", // TODO: confirm actual work location
       desc: "As an Frontend Developer Intern at Exponance from June 2023 to December 2023, I gained valuable hands-on experience in Web development. During my tenure, I contributed to the development of the application's front-end with the MVVM structure, which was designed using Figma. This internship helped me enhance my skills in Web development and gave me an opportunity to work in a collaborative team environment.",
       skills: [
         "React Js",
@@ -211,6 +221,7 @@ export const Bio = {
       img: "https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/x9rs4bldr1vk6rvjv5os",
       school: "Jaypee University Of Information Technology",
       date: "Oct 2022 - Sep 2026",
+      location: "Solan, Himachal Pradesh",
       // grade: "8.71 CGPA",
       desc: "I am currently pursuing a Bachelor's degree in Computer Science and Engineering at Jaypee University Of Information Technology, Solan.",
       degree: "Bachelor of Technology - BTech, Computer Science and Engineering",
@@ -220,6 +231,7 @@ export const Bio = {
       img: "https://davpalampur.com/MyImages/LOGO.png",
       school: "DAV Public School, Palampur",
       date: "Apr 2020 - Apr 2021",
+      location: "Palampur, Himachal Pradesh",
       grade: "84.2%",
       desc: "I completed my class 12 high school education at DAV Public School, Palampur",
       degree: "CBSE(XII), Science",
@@ -229,6 +241,7 @@ export const Bio = {
       img: "https://davpalampur.com/MyImages/LOGO.png",
       school: "DAV Public School, Palampur",
       date: "Apr 2018 - Apr 2019",
+      location: "Palampur, Himachal Pradesh",
       grade: "82%",
       desc: "I completed my class 10 education at DAV Public School, Palampur",
       degree: "CBSE(X)",

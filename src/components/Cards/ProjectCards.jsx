@@ -1,147 +1,121 @@
 import React from 'react'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { ExternalLink } from 'lucide-react'
+import { GithubIcon } from '../common/BrandIcons'
+import Pill from '../common/Pill'
 
-
-const Button = styled.button`
-    display: none;
+const Card = styled(motion.div)`
     width: 100%;
-    padding: 10px;
-    background-color: ${({ theme }) => theme.white};
-    color: ${({ theme }) => theme.text_black};
-    font-size: 14px;
-    font-weight: 700;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.8s ease-in-out;
-`
-const Card = styled.div`
-    width: 330px;
-    height: 490px;
-    background-color: ${({ theme }) => theme.card};
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 0 0 12px 4px rgba(0,0,0,0.4);
+    border: 1px solid ${({ theme }) => theme.card_border};
+    border-radius: 16px;
     overflow: hidden;
-    padding: 26px 20px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    transition: all 0.5s ease-in-out;
-    &:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 0 50px 4px rgba(0,0,0,0.6);
-        filter: brightness(1.1);
-    }
-    &:hover ${Button} {
-        display: block;
-    }
+    background: ${({ theme }) => theme.card};
 `
 
 const Image = styled.img`
     width: 100%;
-    height: 180px;
-    background-color: ${({ theme }) => theme.white};
-    border-radius: 10px;
-    box-shadow: 0 0 16px 2px rgba(0,0,0,0.3);
+    height: 200px;
+    object-fit: cover;
 `
 
-const Tags = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 4px;
-`
-
-const Tag = styled.span`
-    font-size: 12px;
-    font-weight: 400;
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.primary + 15};
-    padding: 2px 8px;
-    border-radius: 10px;
-`
-
-const Details = styled.div`
+const Body = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0px;
-    padding: 0px 2px;
+    gap: 12px;
+    padding: 20px;
+    flex: 1;
 `
+
 const Title = styled.div`
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
+    color: ${({ theme }) => theme.text_primary};
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+`
+
+const Description = styled.div`
+    font-size: 14px;
+    line-height: 1.5;
     color: ${({ theme }) => theme.text_secondary};
     overflow: hidden;
     display: -webkit-box;
-    max-width: 100%;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-`
-
-const Date = styled.div`
-    font-size: 12px;
-    margin-left: 2px;
-    font-weight: 400;
-    color: ${({ theme }) => theme.text_secondary + 80};
-    @media only screen and (max-width: 768px){
-        font-size: 10px;
-    }
-`
-
-
-const Description = styled.div`
-    font-weight: 400;
-    color: ${({ theme }) => theme.text_secondary + 99};
-    overflow: hidden;
-    margin-top: 8px;
-    display: -webkit-box;
-    max-width: 100%;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
 `
 
-const Members = styled.div`
+const Tags = styled.div`
     display: flex;
-    align-items: center;
-    padding-left: 10px;
-`
-const Avatar = styled.img`
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    margin-left: -10px;
-    background-color: ${({ theme }) => theme.white};
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    border: 3px solid ${({ theme }) => theme.card};
+    flex-wrap: wrap;
+    gap: 8px;
 `
 
-const ProjectCards = ({project,setOpenModal}) => {
+const ButtonRow = styled.div`
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 4px;
+`
+
+const CodeButton = styled.a`
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid ${({ theme }) => theme.card_border};
+    color: ${({ theme }) => theme.text_primary};
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+`
+
+const DemoButton = styled.a`
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: ${({ theme }) => theme.button};
+    color: ${({ theme }) => theme.button_text};
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+`
+
+const ProjectCards = ({ project }) => {
     return (
-        <Card onClick={() => setOpenModal({state: true, project: project})}>
-            <Image src={project.image}/>
-            <Tags>
-                {project.tags?.map((tag, index) => (
-                <Tag>{tag}</Tag>
-                ))}
-            </Tags>
-            <Details>
+        <Card whileHover={{ y: -6 }}>
+            <Image src={project.image} alt={project.title} />
+            <Body>
                 <Title>{project.title}</Title>
-                <Date>{project.date}</Date>
                 <Description>{project.description}</Description>
-            </Details>
-            <Members>
-                {project.member?.map((member) => (
-                    <Avatar src={member.img}/>
-                ))}
-            </Members>
-            {/* <Button>View Project</Button> */}
+                <Tags>
+                    {project.tags?.map((tag) => (
+                        <Pill key={tag} variant="filled">{tag}</Pill>
+                    ))}
+                </Tags>
+                <ButtonRow>
+                    {project.github &&
+                        <CodeButton href={project.github} target="_blank" rel="noreferrer">
+                            <GithubIcon size={16} />
+                            Code
+                        </CodeButton>
+                    }
+                    {project.webapp &&
+                        <DemoButton href={project.webapp} target="_blank" rel="noreferrer">
+                            <ExternalLink size={16} />
+                            Demo
+                        </DemoButton>
+                    }
+                </ButtonRow>
+            </Body>
         </Card>
     )
 }

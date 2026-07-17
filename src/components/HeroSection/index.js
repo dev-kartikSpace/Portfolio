@@ -1,45 +1,113 @@
-import React from 'react';
-import Typewriter from 'typewriter-effect';
-import { Bio } from '../../data/constants';
+import React, { useRef } from 'react';
+import { useScroll, useTransform } from 'framer-motion';
+import { Mail, Download, ArrowDown, Sparkles } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '../common/BrandIcons';
+import { Bio, heroStats } from '../../data/constants';
 import HeroImg from '../../images/HeroImage.jpg';
-import HeroBgAnimation from '../HeroBgAnimation';
-import { HeroBg, HeroContainer, HeroInnerContainer, HeroLeftContainer, HeroRightContainer, Img, ResumeButton, Span, SubTitle, TextLoop, Title } from './HeroStyle';
+import {
+    HeroContainer, BackgroundDecor, Blob, GridOverlay, HeroInner, HeroLeft, HeroRight,
+    Badge, Headline, SubtitleLine, Description, CTARow, PrimaryButton, SecondaryButton,
+    SocialRow, SocialIconButton, StatsRow, StatBlock, StatValue, StatLabel,
+    ImageWrapper, ProfileImage, HireBadge, GreenDot, ScrollCue
+} from './HeroStyle';
 
 const HeroSection = () => {
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ['start start', 'end start'],
+    });
+    const imageY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+    const textY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+
     return (
-        <div id="about">
-            <HeroContainer>
-                <HeroBg>
-                    <HeroBgAnimation />
-                </HeroBg>
-                <HeroInnerContainer >
-                    <HeroLeftContainer id="Left">
-                        <Title>Hi, I am <br /> {Bio.name}</Title>
-                        <TextLoop>
-                            I am a
-                            <Span>
-                                <Typewriter
-                                    options={{
-                                        strings: Bio.roles,
-                                        autoStart: true,
-                                        loop: true,
-                                    }}
-                                />
-                            </Span>
-                        </TextLoop>
-                        <SubTitle>{Bio.description}</SubTitle>
-                        <ResumeButton href={Bio.resume} target='display'>Check Resume</ResumeButton>
-                    </HeroLeftContainer>
+        <HeroContainer id="home" ref={containerRef}>
+            <BackgroundDecor>
+                <Blob style={{ width: 260, height: 260, top: '10%', left: '5%' }} />
+                <Blob style={{ width: 320, height: 320, top: '30%', right: '10%', animationDelay: '1s' }} />
+                <Blob style={{ width: 280, height: 280, bottom: '10%', left: '15%', animationDelay: '2s' }} />
+                <GridOverlay>
+                    {Array.from({ length: 12 }, (_, i) => <div key={i} />)}
+                </GridOverlay>
+            </BackgroundDecor>
 
-                    <HeroRightContainer id="Right">
+            <HeroInner>
+                <HeroLeft style={{ y: textY }}>
+                    <Badge>
+                        <Sparkles size={16} />
+                        Available for Work
+                    </Badge>
 
-                        <Img src={HeroImg} alt="hero-image" />
-                    </HeroRightContainer>
-                </HeroInnerContainer>
+                    <Headline>
+                        <span className="muted">Hello, I'm</span>
+                        <span>{Bio.name}</span>
+                    </Headline>
 
-            </HeroContainer>
-        </div>
-    )
-}
+                    <SubtitleLine>
+                        {Bio.roles[0]} crafting digital experiences with <b>{heroStats[1]?.value} years</b> of expertise
+                    </SubtitleLine>
 
-export default HeroSection
+                    <Description>{Bio.description}</Description>
+
+                    <CTARow>
+                        <PrimaryButton
+                            href={Bio.resume}
+                            target="_blank"
+                            rel="noreferrer"
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                        >
+                            <Download size={18} />
+                            Download Resume
+                        </PrimaryButton>
+                        <SecondaryButton
+                            href="#projects"
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                        >
+                            View My Work
+                        </SecondaryButton>
+                    </CTARow>
+
+                    <SocialRow>
+                        <SocialIconButton href={Bio.github} target="_blank" rel="noreferrer" whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}>
+                            <GithubIcon size={18} />
+                        </SocialIconButton>
+                        <SocialIconButton href={Bio.linkedin} target="_blank" rel="noreferrer" whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}>
+                            <LinkedinIcon size={18} />
+                        </SocialIconButton>
+                        <SocialIconButton href={`mailto:${Bio.email}`} whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}>
+                            <Mail size={18} />
+                        </SocialIconButton>
+                    </SocialRow>
+
+                    <StatsRow>
+                        {heroStats.map((stat) => (
+                            <StatBlock key={stat.label}>
+                                <StatValue>{stat.value}</StatValue>
+                                <StatLabel>{stat.label}</StatLabel>
+                            </StatBlock>
+                        ))}
+                    </StatsRow>
+                </HeroLeft>
+
+                <HeroRight style={{ y: imageY }}>
+                    <ImageWrapper>
+                        <ProfileImage src={HeroImg} alt={Bio.name} />
+                        <HireBadge>
+                            <GreenDot />
+                            Available for hire
+                        </HireBadge>
+                    </ImageWrapper>
+                </HeroRight>
+            </HeroInner>
+
+            <ScrollCue>
+                Scroll to explore
+                <ArrowDown size={18} />
+            </ScrollCue>
+        </HeroContainer>
+    );
+};
+
+export default HeroSection;

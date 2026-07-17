@@ -1,56 +1,61 @@
 import React from 'react'
-import { Nav, NavLink, NavbarContainer, Span, NavLogo, NavItems, GitHubButton, ButtonContainer, MobileIcon, MobileMenu, MobileNavLogo, MobileLink } from './NavbarStyledComponent'
-import { DiCssdeck } from 'react-icons/di';
-import { FaBars } from 'react-icons/fa';
-import { Bio } from '../../data/constants';
-import { Close, CloseRounded } from '@mui/icons-material';
-import { useTheme } from 'styled-components';
+import { Nav, NavLink, NavbarContainer, Span, NavLogo, NavItems, ButtonContainer, MobileIcon, MobileMenu, MobileLink, ThemeToggleButton, MobileMenuButtonWrapper } from './NavbarStyledComponent'
+import { Menu, X, Sun, Moon } from 'lucide-react'
+import { Bio } from '../../data/constants'
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const theme = useTheme()
+const navItems = [
+  { label: 'Home', href: '#home' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Education', href: '#education' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
+]
+
+const Navbar = ({ darkMode, toggleTheme }) => {
+  const [isOpen, setIsOpen] = React.useState(false)
   return (
     <Nav>
       <NavbarContainer>
         <NavLogo to='/'>
-          <a style={{ display: "flex", alignItems: "center", color: "white", marginBottom: '20;', cursor: 'pointer' }}>
-            <DiCssdeck size="3rem" /> <Span>Portfolio</Span>
-          </a>
+          <Span>{Bio.name}</Span>
         </NavLogo>
-        <MobileIcon>
-          <FaBars onClick={() => {
-            setIsOpen(!isOpen)
-          }} />
-        </MobileIcon>
         <NavItems>
-          <NavLink href="#about">About</NavLink>
-          <NavLink href='#skills'>Skills</NavLink>
-          <NavLink href='#experience'>Experience</NavLink>
-          <NavLink href='#projects'>Projects</NavLink>
-          <NavLink href='#education'>Education</NavLink>
+          {navItems.map((item) => (
+            <NavLink key={item.label} href={item.href}>{item.label}</NavLink>
+          ))}
         </NavItems>
         <ButtonContainer>
-          <GitHubButton href={Bio.github} target="_blank">Github Profile</GitHubButton>
+          <ThemeToggleButton
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+          </ThemeToggleButton>
         </ButtonContainer>
+        <MobileIcon>
+          <ThemeToggleButton
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+          </ThemeToggleButton>
+          <MobileMenuButtonWrapper onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </MobileMenuButtonWrapper>
+        </MobileIcon>
         {
           isOpen &&
           <MobileMenu isOpen={isOpen}>
-            <MobileLink href="#about" onClick={() => {
-              setIsOpen(!isOpen)
-            }}>About</MobileLink>
-            <MobileLink href='#skills' onClick={() => {
-              setIsOpen(!isOpen)
-            }}>Skills</MobileLink>
-            <MobileLink href='#experience' onClick={() => {
-              setIsOpen(!isOpen)
-            }}>Experience</MobileLink>
-            <MobileLink href='#projects' onClick={() => {
-              setIsOpen(!isOpen)
-            }}>Projects</MobileLink>
-            <MobileLink href='#education' onClick={() => {
-              setIsOpen(!isOpen)
-            }}>Education</MobileLink>
-            <GitHubButton style={{padding: '10px 16px',background: `${theme.primary}`, color: 'white',width: 'max-content'}} href={Bio.github} target="_blank">Github Profile</GitHubButton>
+            {navItems.map((item) => (
+              <MobileLink key={item.label} href={item.href} onClick={() => setIsOpen(false)}>
+                {item.label}
+              </MobileLink>
+            ))}
           </MobileMenu>
         }
       </NavbarContainer>

@@ -1,147 +1,123 @@
 import React from 'react'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { Layout, Server, Smartphone, Wrench } from 'lucide-react'
 import { skills } from '../../data/constants'
+import Reveal from '../common/Reveal'
+import Pill from '../common/Pill'
+
+const categoryIcons = {
+  Frontend: Layout,
+  Backend: Server,
+  Android: Smartphone,
+  Others: Wrench,
+}
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-position: relative;
-z-index: 1;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 24px;
+
+  @media (max-width: 768px) {
+    padding: 56px 16px;
+  }
 `
 
 const Wrapper = styled.div`
-position: relative;
-display: flex;
-justify-content: space-between;
-align-items: center;
-flex-direction: column;
-width: 100%;
-max-width: 1100px;
-gap: 12px;
-@media (max-width: 960px) {
-    flex-direction: column;
-}
-`
-
-export const Title = styled.div`
-font-size: 42px;
-text-align: center;
-font-weight: 600;
-margin-top: 20px;
-  color: ${({ theme }) => theme.text_primary};
-  @media (max-width: 768px) {
-margin-top: 12px;
-      font-size: 32px;
-  }
-`;
-
-export const Desc = styled.div`
-    font-size: 18px;
-    text-align: center;
-    max-width: 600px;
-    color: ${({ theme }) => theme.text_secondary};
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-`;
-
-const SkillsContainer = styled.div`
   width: 100%;
+  max-width: 1100px;
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 30px;
-  gap: 30px;
-  justify-content: center;
-`
-
-const Skill = styled.div`
-  width: 100%;
-  max-width: 500px;
-  background: ${({ theme }) => theme.card};
-  border: 0.1px solid #854CE6;
-  box-shadow: rgba(23, 92, 230, 0.15) 0px 4px 24px;
-  border-radius: 16px;
-  padding: 18px 36px;
-  @media (max-width: 768px) {
-    max-width: 400px;
-    padding: 10px 36px;
-  }
-  @media (max-width: 500px) {
-    max-width: 330px;
-    padding: 10px 36px;
-  }
-
-
-`
-
-const SkillTitle = styled.h2`
-  font-size: 28px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.text_secondary};
-  margin-bottom: 20px;
-  text-align: center;
-`
-
-const SkillList = styled.div`
-  display: flex;
-  justify-content: center; 
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   gap: 12px;
-  margin-bottom: 20px;
 `
 
-const SkillItem = styled.div`
+const Title = styled.h2`
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  color: ${({ theme }) => theme.text_primary};
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+`
+
+const Desc = styled.p`
   font-size: 16px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.text_primary + 80};
-  border: 1px solid ${({ theme }) => theme.text_primary + 80};
-  border-radius: 12px;
-  padding: 12px 16px;
+  text-align: center;
+  max-width: 600px;
+  color: ${({ theme }) => theme.text_secondary};
+  margin: 0 0 24px 0;
+`
+
+const Grid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @media (max-width: 960px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const Card = styled(motion.div)`
+  border: 1px solid ${({ theme }) => theme.card_border};
+  border-radius: 16px;
+  padding: 24px;
+  background: ${({ theme }) => theme.card};
+`
+
+const CardHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+  color: ${({ theme }) => theme.text_primary};
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 16px;
+`
+
+const PillList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  @media (max-width: 768px) {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-  @media (max-width: 500px) {
-    font-size: 14px;
-    padding: 6px 12px;
-  }
 `
-
-const SkillImage = styled.img`
-  width: 24px;
-  height: 24px;
-`
-
 
 const Skills = () => {
   return (
     <Container id="skills">
       <Wrapper>
-        <Title>Skills</Title>
-        <Desc>Here are some of my skills on which I have been working on for the past 2 years.
-        </Desc>
-        <SkillsContainer>
-          {skills.map((skill) => (
-            <Skill>
-              <SkillTitle>{skill.title}</SkillTitle>
-              <SkillList>
-                {skill.skills.map((item) => (
-                  <SkillItem>
-                    <SkillImage src={item.image}/>
-                    {item.name}
-                  </SkillItem>
-                ))}
-              </SkillList>
-            </Skill>
-          ))}
-
-        </SkillsContainer>
+        <Reveal>
+          <Title>Technical Skills</Title>
+          <Desc>Here are some of the technologies and tools I've been working with.</Desc>
+        </Reveal>
+        <Grid>
+          {skills.map((category, index) => {
+            const Icon = categoryIcons[category.title] || Wrench
+            return (
+              <Reveal key={category.title} delay={index * 0.08}>
+                <Card whileHover={{ y: -4 }}>
+                  <CardHeader>
+                    <Icon size={20} />
+                    {category.title}
+                  </CardHeader>
+                  <PillList>
+                    {category.skills.map((item) => (
+                      <Pill key={item.name} variant="filled">{item.name}</Pill>
+                    ))}
+                  </PillList>
+                </Card>
+              </Reveal>
+            )
+          })}
+        </Grid>
       </Wrapper>
     </Container>
   )

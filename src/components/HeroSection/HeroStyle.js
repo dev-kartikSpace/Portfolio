@@ -1,203 +1,310 @@
-import styled from "styled-components";
-import _default from "../../themes/default";
+import styled, { keyframes } from "styled-components";
+import { motion } from "framer-motion";
 
-export const HeroContainer = styled.div`
+const pulse = keyframes`
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+`;
+
+const bounce = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+`;
+
+export const HeroContainer = styled.section`
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 120px 24px 80px 24px;
+  background: ${({ theme }) => theme.bg};
+
+  @media (max-width: 960px) {
+    padding: 100px 16px 64px 16px;
+  }
+`;
+
+export const BackgroundDecor = styled.div`
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+`;
+
+export const Blob = styled.div`
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
   background: ${({ theme }) => theme.card_light};
+  opacity: 0.35;
+  animation: ${pulse} 6s ease-in-out infinite;
+`;
+
+export const GridOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  opacity: 0.04;
+
+  div {
+    border-right: 1px solid ${({ theme }) => theme.text_primary};
+    height: 100%;
+  }
+`;
+
+export const HeroInner = styled.div`
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+`;
+
+export const HeroLeft = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  @media (max-width: 960px) {
+    align-items: center;
+    order: 2;
+  }
+`;
+
+export const HeroRight = styled(motion.div)`
   display: flex;
   justify-content: center;
-  position: relative;
-  padding: 80px 30px;
-  @media (max-width: 960px) {
-    padding: 66px 16px;
-  }
-  @media (max-width: 640) {
-    padding: 32px 16px;
-  }
-  z-index: 1;
 
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 95%, 0 100%);
-`;
-
-export const HeroBg = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: end;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  max-width: 1360px;
-  overflow: hidden;
-  padding: 0 30px;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-
-  @media (max-width: 960px) {
-    justify-content: center;
-    padding: 0 0px;
-  }
-`;
-
-export const HeroInnerContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1100px;
-
-  @media (max-width: 960px) {
-    flex-direction: column;
-  }
-`;
-export const HeroLeftContainer = styled.div`
-  width: 100%;
-  order: 1;
-  @media (max-width: 960px) {
-    order: 2;
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  @media (max-width: 640px) {
-    order: 2;
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
-export const HeroRightContainer = styled.div`
-  width: 100%;
-  display: flex;
-  order: 2;
-  justify-content: end;
-  gap: 12px;
   @media (max-width: 960px) {
     order: 1;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 80px;
-  }
-
-  @media (max-width: 640px) {
-    margin-bottom: 30px;
   }
 `;
 
-export const Img = styled.img`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 400px;
-  max-height: 400px;
-  border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.primary};
-
-  @media (max-width: 768px) {
-    max-width: 400px;
-    max-height: 400px;
-  }
-
-  @media (max-width: 640px) {
-    max-width: 280px;
-    max-height: 280px;
-  }
+export const Badge = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid ${({ theme }) => theme.card_border};
+  background: ${({ theme }) => theme.card_light};
+  color: ${({ theme }) => theme.text_secondary};
+  font-size: 13px;
+  font-weight: 500;
 `;
 
-export const Title = styled.div`
+export const Headline = styled.h1`
   font-weight: 700;
-  font-size: 50px;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.1;
   color: ${({ theme }) => theme.text_primary};
-  line-height: 68px;
-  @media (max-width: 960px) {
-    text-align: center;
+  margin: 0;
+
+  span {
+    display: block;
   }
 
-  @media (max-width: 640px) {
-    font-size: 40px;
-    line-height: 48px;
-    margin-bottom: 8px;
+  .muted {
+    color: ${({ theme }) => theme.text_secondary};
+    font-weight: 500;
   }
 `;
 
-export const TextLoop = styled.div`
-  font-weight: 600;
-  font-size: 32px;
+export const SubtitleLine = styled.p`
+  font-size: 20px;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.text_secondary};
+  max-width: 560px;
+  margin: 0;
+
+  b {
+    color: ${({ theme }) => theme.text_primary};
+  }
+
+  @media (max-width: 960px) {
+    max-width: 100%;
+  }
+`;
+
+export const Description = styled.p`
+  font-size: 16px;
+  line-height: 1.6;
+  color: ${({ theme }) => theme.text_secondary};
+  max-width: 520px;
+  margin: 0;
+
+  @media (max-width: 960px) {
+    max-width: 100%;
+  }
+`;
+
+export const CTARow = styled.div`
   display: flex;
-  gap: 12px;
-  color: ${({ theme }) => theme.text_primary};
-  line-height: 68px;
+  flex-wrap: wrap;
+  gap: 16px;
+
   @media (max-width: 960px) {
-    text-align: center;
-  }
-  @media (max-width: 640px) {
-    font-size: 22px;
-    line-height: 48px;
-    margin-bottom: 16px;
+    justify-content: center;
   }
 `;
 
-export const Span = styled.span`
-  color: ${({ theme }) => theme.primary};
+export const PrimaryButton = styled(motion.a)`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.button};
+  color: ${({ theme }) => theme.button_text};
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
   cursor: pointer;
 `;
 
-export const SubTitle = styled.div`
-  font-size: 20px;
-  line-height: 32px;
-  margin-bottom: 42px;
-  color: ${({ theme }) => theme.text_primary + 95};
+export const SecondaryButton = styled(motion.a)`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: 1px solid ${({ theme }) => theme.card_border};
+  background: transparent;
+  color: ${({ theme }) => theme.text_primary};
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+export const SocialRow = styled.div`
+  display: flex;
+  gap: 12px;
 
   @media (max-width: 960px) {
-    text-align: center;
-  }
-
-  @media (max-width: 640px) {
-    font-size: 16px;
-    line-height: 32px;
+    justify-content: center;
   }
 `;
 
-export const ResumeButton = styled.a`
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-    text-decoration: none;
-    width: 95%;
-    max-width: 300px;
-    text-align: center;
-    padding: 16px 0;
-    color:${({ theme }) => theme.white};
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out !important;
-    background: hsla(271, 100%, 50%, 1);
-    background: linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
-    background: -moz-linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
-    background: -webkit-linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
-    box-shadow:  20px 20px 60px #1F2634,
-    -20px -20px 60px #1F2634;
-    &:hover {
-        transform: scale(1.05);
-    transition: all 0.4s ease-in-out;
-    box-shadow:  20px 20px 60px #1F2634,
-    filter: brightness(1);
-    }    
-    
-    
-    @media (max-width: 640px) {
-        padding: 12px 0;
-        font-size: 18px;
-    } 
+export const SocialIconButton = styled(motion.a)`
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.card_border};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ theme }) => theme.text_primary};
+  cursor: pointer;
+`;
 
+export const StatsRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 40px;
+  padding-top: 12px;
+
+  @media (max-width: 960px) {
+    justify-content: center;
+    gap: 32px;
+  }
+`;
+
+export const StatBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const StatValue = styled.div`
+  font-size: 28px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.text_primary};
+`;
+
+export const StatLabel = styled.div`
+  font-size: 13px;
+  color: ${({ theme }) => theme.text_secondary};
+`;
+
+export const ImageWrapper = styled(motion.div)`
+  position: relative;
+`;
+
+export const ProfileImage = styled.img`
+  width: 320px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid ${({ theme }) => theme.card_border};
+
+  @media (max-width: 640px) {
+    width: 240px;
+    height: 240px;
+  }
+`;
+
+export const HireBadge = styled.div`
+  position: absolute;
+  bottom: 12px;
+  right: -12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: ${({ theme }) => theme.card};
+  border: 1px solid ${({ theme }) => theme.card_border};
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  font-size: 13px;
+  color: ${({ theme }) => theme.text_primary};
+
+  @media (max-width: 640px) {
+    right: 0;
+    padding: 10px 14px;
+  }
+`;
+
+export const GreenDot = styled.div`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.success};
+  animation: ${pulse} 2s ease-in-out infinite;
+`;
+
+export const ScrollCue = styled.div`
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: ${({ theme }) => theme.text_secondary};
+  font-size: 13px;
+  z-index: 1;
+
+  svg {
+    animation: ${bounce} 1.6s ease-in-out infinite;
+  }
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
