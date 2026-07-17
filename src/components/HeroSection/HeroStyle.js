@@ -64,7 +64,7 @@ const float3 = keyframes`
   50% { transform: translate(30px, -50px) scale(1.05) rotate(180deg); }
 `;
 
-export const AuroraBlob = styled.div`
+export const AuroraBlob = styled(motion.div)`
   position: absolute;
   border-radius: 50%;
   filter: blur(140px);
@@ -99,9 +99,9 @@ export const Aurora3 = styled(AuroraBlob)`
 `;
 
 
-export const HeroInner = styled.div`
+export const HeroInner = styled(motion.div)`
   position: relative;
-  // top: -10px;
+  top: -30px;
   z-index: 1;
   width: 100%;
   max-width: 1200px;

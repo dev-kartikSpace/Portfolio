@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { Layout, Server, Smartphone, Wrench } from 'lucide-react'
 import { skills } from '../../data/constants'
 import Reveal from '../common/Reveal'
@@ -76,11 +76,13 @@ const Container = styled.div`
   padding: 0 24px 80px 24px;
   position: relative;
   overflow: hidden;
+  background: ${({ theme }) => theme.bg};
+  z-index: 1;
 
   @media (max-width: 768px) {
     padding: 0 16px 56px 16px;
   }
-`
+`;
 
 const Divider = styled.div`
   width: 100%;
@@ -124,7 +126,7 @@ const FloatingBackground = styled.div`
   z-index: 0;
 `;
 
-const FloatingIconWrapper = styled.div`
+const FloatingIconWrapper = styled(motion.div)`
   position: absolute;
   color: ${({ theme }) => theme.text_primary};
   opacity: ${({ theme }) => theme.bg === '#FFFFFF' ? '0.15' : '0.10'};
@@ -136,40 +138,44 @@ const FloatingIconWrapper = styled.div`
   }
 `;
 
+const FloatInnerSlow = styled.div`
+  animation: ${floatSlow} 22s infinite ease-in-out;
+  display: flex;
+`;
+
+const FloatInnerFast = styled.div`
+  animation: ${floatFast} 26s infinite ease-in-out;
+  display: flex;
+`;
+
 const FloatReact = styled(FloatingIconWrapper)`
   top: 12%;
   left: 8%;
-  animation: ${floatSlow} 22s infinite ease-in-out;
 `;
 
 const FloatNode = styled(FloatingIconWrapper)`
   top: 22%;
   right: 10%;
-  animation: ${floatFast} 26s infinite ease-in-out;
 `;
 
 const FloatDocker = styled(FloatingIconWrapper)`
   top: 55%;
   left: 4%;
-  animation: ${floatFast} 24s infinite ease-in-out;
 `;
 
 const FloatFigma = styled(FloatingIconWrapper)`
   top: 65%;
   right: 9%;
-  animation: ${floatSlow} 28s infinite ease-in-out;
 `;
 
 const FloatGit = styled(FloatingIconWrapper)`
   bottom: 15%;
   left: 16%;
-  animation: ${floatSlow} 25s infinite ease-in-out;
 `;
 
 const FloatPython = styled(FloatingIconWrapper)`
   bottom: 10%;
   right: 20%;
-  animation: ${floatFast} 20s infinite ease-in-out;
 `;
 
 const Wrapper = styled.div`
@@ -258,15 +264,33 @@ const SkillPill = styled(Pill)`
 `;
 
 const Skills = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start']
+  });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 70,
+    damping: 25,
+    restDelta: 0.001
+  });
+
+  const reactY = useTransform(smoothProgress, [0, 1], [40, -140]);
+  const nodeY = useTransform(smoothProgress, [0, 1], [60, -90]);
+  const dockerY = useTransform(smoothProgress, [0, 1], [100, -160]);
+  const figmaY = useTransform(smoothProgress, [0, 1], [80, -110]);
+  const gitY = useTransform(smoothProgress, [0, 1], [50, -130]);
+  const pythonY = useTransform(smoothProgress, [0, 1], [90, -150]);
+
   return (
-    <Container id="skills">
+    <Container id="skills" ref={containerRef}>
       <FloatingBackground>
-        <FloatReact><ReactIcon /></FloatReact>
-        <FloatNode><NodeIcon /></FloatNode>
-        <FloatDocker><DockerIcon /></FloatDocker>
-        <FloatFigma><FigmaIcon /></FloatFigma>
-        <FloatGit><GitIcon /></FloatGit>
-        <FloatPython><PythonIcon /></FloatPython>
+        <FloatReact style={{ y: reactY }}><FloatInnerSlow><ReactIcon /></FloatInnerSlow></FloatReact>
+        <FloatNode style={{ y: nodeY }}><FloatInnerFast><NodeIcon /></FloatInnerFast></FloatNode>
+        <FloatDocker style={{ y: dockerY }}><FloatInnerFast><DockerIcon /></FloatInnerFast></FloatDocker>
+        <FloatFigma style={{ y: figmaY }}><FloatInnerSlow><FigmaIcon /></FloatInnerSlow></FloatFigma>
+        <FloatGit style={{ y: gitY }}><FloatInnerSlow><GitIcon /></FloatInnerSlow></FloatGit>
+        <FloatPython style={{ y: pythonY }}><FloatInnerFast><PythonIcon /></FloatInnerFast></FloatPython>
       </FloatingBackground>
       <Divider />
       <Wrapper>

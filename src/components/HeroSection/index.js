@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useScroll, useTransform } from 'framer-motion';
+import { useScroll, useTransform, useSpring } from 'framer-motion';
 import { Mail, Download, ArrowDown, Sparkles } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../common/BrandIcons';
 import { Bio, heroStats } from '../../data/constants';
@@ -17,15 +17,29 @@ const HeroSection = () => {
         target: containerRef,
         offset: ['start start', 'end start'],
     });
-    const imageY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-    const textY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+
+    // Apply spring physics for elastic smoothing on scroll inertia
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 70,
+        damping: 25,
+        restDelta: 0.001
+    });
+
+    // Foreground components translate UPWARD
+    const imageY = useTransform(smoothProgress, [0, 1], [0, -120]);
+    const textY = useTransform(smoothProgress, [0, 1], [0, -60]);
+
+    // Background Aurora elements translate DOWNWARD (Opposite direction for 3D depth)
+    const aurora1Y = useTransform(smoothProgress, [0, 1], [0, 80]);
+    const aurora2Y = useTransform(smoothProgress, [0, 1], [0, 60]);
+    const aurora3Y = useTransform(smoothProgress, [0, 1], [0, 40]);
 
     return (
         <HeroContainer id="home" ref={containerRef}>
             <BackgroundDecor>
-                <Aurora1 />
-                <Aurora2 />
-                <Aurora3 />
+                <Aurora1 style={{ y: aurora1Y }} />
+                <Aurora2 style={{ y: aurora2Y }} />
+                <Aurora3 style={{ y: aurora3Y }} />
             </BackgroundDecor>
 
             <HeroInner>
