@@ -18,21 +18,21 @@ const HeroSection = () => {
         offset: ['start start', 'end start'],
     });
 
-    // Apply spring physics for elastic smoothing on scroll inertia
+    // Apply soft spring physics for a more pronounced elastic drift/lag
     const smoothProgress = useSpring(scrollYProgress, {
-        stiffness: 70,
-        damping: 25,
+        stiffness: 35,
+        damping: 20,
         restDelta: 0.001
     });
 
-    // Foreground components translate UPWARD
-    const imageY = useTransform(smoothProgress, [0, 1], [0, -120]);
-    const textY = useTransform(smoothProgress, [0, 1], [0, -60]);
+    // Boosted foreground translations UPWARD
+    const imageY = useTransform(smoothProgress, [0, 1], [0, -300]);
+    const textY = useTransform(smoothProgress, [0, 1], [0, -140]);
 
-    // Background Aurora elements translate DOWNWARD (Opposite direction for 3D depth)
-    const aurora1Y = useTransform(smoothProgress, [0, 1], [0, 80]);
-    const aurora2Y = useTransform(smoothProgress, [0, 1], [0, 60]);
-    const aurora3Y = useTransform(smoothProgress, [0, 1], [0, 40]);
+    // Boosted background translations DOWNWARD
+    const aurora1Y = useTransform(smoothProgress, [0, 1], [0, 180]);
+    const aurora2Y = useTransform(smoothProgress, [0, 1], [0, 150]);
+    const aurora3Y = useTransform(smoothProgress, [0, 1], [0, 100]);
 
     return (
         <HeroContainer id="home" ref={containerRef}>

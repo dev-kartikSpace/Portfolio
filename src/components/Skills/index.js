@@ -5,6 +5,7 @@ import { Layout, Server, Smartphone, Wrench } from 'lucide-react'
 import { skills } from '../../data/constants'
 import Reveal from '../common/Reveal'
 import Pill from '../common/Pill'
+import { GithubIcon } from '../common/BrandIcons'
 
 const categoryIcons = {
   Frontend: Layout,
@@ -66,6 +67,27 @@ const GitIcon = () => (
 const PythonIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
     <path d="M11.892 0c-1.42 0-2.658.077-3.715.228-2.65.383-3.155 1.554-3.155 3.541v1.942h6.985v.85H1.939C.8 6.561.034 7.424.034 9.176v4.614c0 1.517.925 2.502 2.348 2.569h1.611v-2.27c0-2.31 1.768-4.148 4.22-4.148h4.5v-1.62c0-1.89-.96-3.195-2.73-3.195h-5.91V3.535C4.073 1.954 5.378.85 7.625.85h4.267V0H11.892zm4.316 6.844v2.27c0 2.31-1.768 4.148-4.22 4.148h-4.5v1.62c0 1.89.96 3.195 2.73 3.195h5.91v1.597c0 1.581-1.305 2.685-3.552 2.685H8.31v.85h4.266c1.42 0 2.658-.077 3.715-.228 2.65-.383 3.155-1.554 3.155-3.541v-1.942h-6.985v-.85h10.068c1.139 0 1.905-.863 1.905-2.615V9.176c0-1.517-.925-2.502-2.348-2.569h-1.611zM9.54 2.126a.637.637 0 1 1 0 1.275.637.637 0 0 1 0-1.275zm4.908 18.243a.637.637 0 1 1 0 1.275.637.637 0 0 1 0-1.275z"/>
+  </svg>
+);
+
+const GraphQLIcon = () => (
+  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="4" width="48" height="48">
+    <polygon points="50,9 90,32 90,78 50,100 10,78 10,32" />
+    <line x1="50" y1="9" x2="50" y2="100" />
+    <line x1="10" y1="32" x2="90" y2="78" />
+    <line x1="90" y1="32" x2="10" y2="78" />
+    <circle cx="50" cy="9" r="6" fill="currentColor" />
+    <circle cx="90" cy="32" r="6" fill="currentColor" />
+    <circle cx="90" cy="78" r="6" fill="currentColor" />
+    <circle cx="50" cy="100" r="6" fill="currentColor" />
+    <circle cx="10" cy="78" r="6" fill="currentColor" />
+    <circle cx="10" cy="32" r="6" fill="currentColor" />
+  </svg>
+);
+
+const VSCodeIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+    <path d="M23.984 6.642a.81.81 0 0 0-.256-.456l-3.324-2.883a.81.81 0 0 0-1.127.068L12.593 11.23 7.828 7.643a.81.81 0 0 0-1.008.026L.602 12.894a.81.81 0 0 0-.01 1.228l6.236 5.437a.81.81 0 0 0 1.018.016l4.757-3.64 6.702 7.797a.81.81 0 0 0 1.135.056l3.324-2.883a.81.81 0 0 0 .221-.861l-3.418-8.873 3.418-8.872a.81.81 0 0 0-.001-.157ZM14.15 12.016l5.776 5.034-5.776 4.418V12.016ZM2.615 13.064l3.54-3.07 3.54 3.07-3.54 3.07-3.54-3.07Z"/>
   </svg>
 );
 
@@ -178,6 +200,21 @@ const FloatPython = styled(FloatingIconWrapper)`
   right: 20%;
 `;
 
+const FloatGithub = styled(FloatingIconWrapper)`
+  top: 40%;
+  left: 22%;
+`;
+
+const FloatGraphQL = styled(FloatingIconWrapper)`
+  bottom: 45%;
+  right: 26%;
+`;
+
+const FloatVSCode = styled(FloatingIconWrapper)`
+  top: 82%;
+  left: 28%;
+`;
+
 const Wrapper = styled.div`
   width: 100%;
   max-width: 1100px;
@@ -269,18 +306,22 @@ const Skills = () => {
     target: containerRef,
     offset: ['start end', 'end start']
   });
+  // Apply soft spring physics for a more pronounced elastic drift/lag
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 70,
-    damping: 25,
+    stiffness: 35,
+    damping: 20,
     restDelta: 0.001
   });
 
-  const reactY = useTransform(smoothProgress, [0, 1], [40, -140]);
-  const nodeY = useTransform(smoothProgress, [0, 1], [60, -90]);
-  const dockerY = useTransform(smoothProgress, [0, 1], [100, -160]);
-  const figmaY = useTransform(smoothProgress, [0, 1], [80, -110]);
-  const gitY = useTransform(smoothProgress, [0, 1], [50, -130]);
-  const pythonY = useTransform(smoothProgress, [0, 1], [90, -150]);
+  const reactY = useTransform(smoothProgress, [0, 1], [80, -220]);
+  const nodeY = useTransform(smoothProgress, [0, 1], [100, -160]);
+  const dockerY = useTransform(smoothProgress, [0, 1], [140, -260]);
+  const figmaY = useTransform(smoothProgress, [0, 1], [120, -180]);
+  const gitY = useTransform(smoothProgress, [0, 1], [90, -200]);
+  const pythonY = useTransform(smoothProgress, [0, 1], [130, -240]);
+  const githubY = useTransform(smoothProgress, [0, 1], [110, -210]);
+  const graphqlY = useTransform(smoothProgress, [0, 1], [80, -170]);
+  const vscodeY = useTransform(smoothProgress, [0, 1], [120, -230]);
 
   return (
     <Container id="skills" ref={containerRef}>
@@ -291,6 +332,9 @@ const Skills = () => {
         <FloatFigma style={{ y: figmaY }}><FloatInnerSlow><FigmaIcon /></FloatInnerSlow></FloatFigma>
         <FloatGit style={{ y: gitY }}><FloatInnerSlow><GitIcon /></FloatInnerSlow></FloatGit>
         <FloatPython style={{ y: pythonY }}><FloatInnerFast><PythonIcon /></FloatInnerFast></FloatPython>
+        <FloatGithub style={{ y: githubY }}><FloatInnerSlow><GithubIcon size={48} /></FloatInnerSlow></FloatGithub>
+        <FloatGraphQL style={{ y: graphqlY }}><FloatInnerSlow><GraphQLIcon /></FloatInnerSlow></FloatGraphQL>
+        <FloatVSCode style={{ y: vscodeY }}><FloatInnerFast><VSCodeIcon /></FloatInnerFast></FloatVSCode>
       </FloatingBackground>
       <Divider />
       <Wrapper>
