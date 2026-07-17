@@ -13,16 +13,16 @@ const bounce = keyframes`
 
 export const HeroContainer = styled.section`
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - 72px);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 100px 24px 80px 24px;
+  padding: 40px 24px 80px 24px;
   background: ${({ theme }) => theme.bg};
 
   @media (max-width: 960px) {
-    padding: 80px 16px 64px 16px;
+    padding: 32px 16px 64px 16px;
   }
 `;
 
@@ -293,8 +293,7 @@ export const GreenDot = styled.div`
 
 export const ScrollCue = styled.div`
   position: absolute;
-  bottom: auto;
-  top: min(calc(100% - 60px), calc(100vh - 60px));
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
