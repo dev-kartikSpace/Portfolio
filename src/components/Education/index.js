@@ -50,6 +50,11 @@ const CardStack = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 24px;
+
+    & > * {
+        width: 100%;
+        max-width: 900px;
+    }
 `;
 
 const Education = () => {

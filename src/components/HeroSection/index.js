@@ -5,7 +5,7 @@ import { GithubIcon, LinkedinIcon } from '../common/BrandIcons';
 import { Bio, heroStats } from '../../data/constants';
 import HeroImg from '../../images/HeroImage.jpg';
 import {
-    HeroContainer, BackgroundDecor, Blob, GridOverlay, HeroInner, HeroLeft, HeroRight,
+    HeroContainer, BackgroundDecor, Aurora1, Aurora2, Aurora3, HeroInner, HeroLeft, HeroRight,
     Badge, Headline, SubtitleLine, Description, CTARow, PrimaryButton, SecondaryButton,
     SocialRow, SocialIconButton, StatsRow, StatBlock, StatValue, StatLabel,
     ImageWrapper, ProfileImage, HireBadge, GreenDot, ScrollCue
@@ -23,12 +23,9 @@ const HeroSection = () => {
     return (
         <HeroContainer id="home" ref={containerRef}>
             <BackgroundDecor>
-                <Blob style={{ width: 260, height: 260, top: '10%', left: '5%' }} />
-                <Blob style={{ width: 320, height: 320, top: '30%', right: '10%', animationDelay: '1s' }} />
-                <Blob style={{ width: 280, height: 280, bottom: '10%', left: '15%', animationDelay: '2s' }} />
-                <GridOverlay>
-                    {Array.from({ length: 12 }, (_, i) => <div key={i} />)}
-                </GridOverlay>
+                <Aurora1 />
+                <Aurora2 />
+                <Aurora3 />
             </BackgroundDecor>
 
             <HeroInner>

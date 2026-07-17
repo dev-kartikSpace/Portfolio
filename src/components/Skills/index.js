@@ -17,10 +17,43 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 80px 24px;
+  padding: 0 24px 80px 24px;
 
   @media (max-width: 768px) {
-    padding: 56px 16px;
+    padding: 0 16px 56px 16px;
+  }
+`
+
+const Divider = styled.div`
+  width: 100%;
+  max-width: 1100px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    ${({ theme }) => theme.card_border} 50%,
+    transparent 100%
+  );
+  position: relative;
+  margin-top: 40px;
+  margin-bottom: 80px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.card_border};
+    box-shadow: 0 0 8px ${({ theme }) => theme.card_border};
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 24px;
+    margin-bottom: 56px;
   }
 `
 
@@ -93,6 +126,7 @@ const PillList = styled.div`
 const Skills = () => {
   return (
     <Container id="skills">
+      <Divider />
       <Wrapper>
         <Reveal>
           <Title>Technical Skills</Title>

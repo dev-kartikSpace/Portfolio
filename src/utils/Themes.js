@@ -12,6 +12,9 @@ export const darkTheme = {
     success: "#22c55e",
     white: "#FFFFFF",
     black: "#000000",
+    aurora_1: "rgba(133, 76, 230, 0.15)",
+    aurora_2: "rgba(0, 242, 254, 0.12)",
+    aurora_3: "rgba(255, 0, 127, 0.08)",
 }
 
 export const lightTheme = {
@@ -28,4 +31,7 @@ export const lightTheme = {
     success: "#16a34a",
     white: "#FFFFFF",
     black: "#000000",
+    aurora_1: "rgba(133, 76, 230, 0.16)",
+    aurora_2: "rgba(0, 198, 251, 0.13)",
+    aurora_3: "rgba(255, 0, 127, 0.10)",
 }

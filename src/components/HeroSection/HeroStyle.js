@@ -32,32 +32,72 @@ export const BackgroundDecor = styled.div`
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
-`;
 
-export const Blob = styled.div`
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  background: ${({ theme }) => theme.card_light};
-  opacity: 0.35;
-  animation: ${pulse} 6s ease-in-out infinite;
-`;
-
-export const GridOverlay = styled.div`
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 16px;
-  opacity: 0.14;
-  mask-image: linear-gradient(to bottom, transparent, ${({ theme }) => theme.text_primary} 35%, ${({ theme }) => theme.text_primary} 65%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, ${({ theme }) => theme.text_primary} 35%, ${({ theme }) => theme.text_primary} 65%, transparent);
-
-  div {
-    border-right: 1px solid ${({ theme }) => theme.text_primary};
-    height: 100%;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      ${({ theme }) => theme.bg} 0%,
+      transparent 15%,
+      transparent 80%,
+      ${({ theme }) => theme.bg} 100%
+    );
   }
 `;
+
+const float1 = keyframes`
+  0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+  33% { transform: translate(40px, -60px) scale(1.15) rotate(120deg); }
+  66% { transform: translate(-30px, 30px) scale(0.9) rotate(240deg); }
+`;
+
+const float2 = keyframes`
+  0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+  33% { transform: translate(-50px, 40px) scale(0.9) rotate(-120deg); }
+  66% { transform: translate(40px, -30px) scale(1.1) rotate(-240deg); }
+`;
+
+const float3 = keyframes`
+  0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+  50% { transform: translate(30px, -50px) scale(1.05) rotate(180deg); }
+`;
+
+export const AuroraBlob = styled.div`
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  pointer-events: none;
+`;
+
+export const Aurora1 = styled(AuroraBlob)`
+  width: 450px;
+  height: 450px;
+  background: ${({ theme }) => theme.aurora_1};
+  top: -10%;
+  left: -5%;
+  animation: ${float1} 25s ease-in-out infinite;
+`;
+
+export const Aurora2 = styled(AuroraBlob)`
+  width: 500px;
+  height: 500px;
+  background: ${({ theme }) => theme.aurora_2};
+  bottom: -15%;
+  right: -5%;
+  animation: ${float2} 30s ease-in-out infinite;
+`;
+
+export const Aurora3 = styled(AuroraBlob)`
+  width: 350px;
+  height: 350px;
+  background: ${({ theme }) => theme.aurora_3};
+  top: 30%;
+  left: 25%;
+  animation: ${float3} 20s ease-in-out infinite;
+`;
+
 
 export const HeroInner = styled.div`
   position: relative;
