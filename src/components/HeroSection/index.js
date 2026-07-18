@@ -107,7 +107,7 @@ const HeroSection = () => {
                         <ProfileImage src={HeroImg} alt={Bio.name} />
                         <HireBadge>
                             <GreenDot />
-                            Available for hire
+                            Open to Opportunities
                         </HireBadge>
                     </ImageWrapper>
                 </HeroRight>

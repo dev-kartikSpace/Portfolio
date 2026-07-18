@@ -290,8 +290,8 @@ export const ImageWrapper = styled(motion.div)`
 `;
 
 export const ProfileImage = styled.img`
-  width: 320px;
-  height: 320px;
+  width: 350px;
+  height: 350px;
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid ${({ theme }) => theme.card_border};
