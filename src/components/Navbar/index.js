@@ -1,5 +1,5 @@
 import React from 'react'
-import { Nav, NavLink, NavbarContainer, Span, NavLogo, NavItems, ButtonContainer, MobileIcon, MobileMenu, MobileLink, MobileMenuButtonWrapper } from './NavbarStyledComponent'
+import { Nav, NavLink, NavbarContainer, Span, NavLogo, NavItems, MobileIcon, MobileMenu, MobileLink, MobileMenuButtonWrapper } from './NavbarStyledComponent'
 import { Menu, X } from 'lucide-react'
 import { Bio } from '../../data/constants'
 
